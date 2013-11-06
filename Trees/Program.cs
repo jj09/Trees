@@ -110,26 +110,22 @@ namespace Trees
 
         public void LevelOrder(Node start)
         {
-            Console.Write(start.value + ", ");
-            LevelOrderVisitChildren(start);
-        }
-
-        private void LevelOrderVisitChildren(Node start)
-        {
-            var child = start.firstChild;
-            while (child != null)
+            var queue = new Queue<Node>();
+            queue.Enqueue(start);
+            while (queue.Count > 0)
             {
-                Console.Write(child.value + ", ");
-                child = child.nextSibling;
+                var node = queue.Dequeue();
+                Console.Write(node.value + ", ");
+                var child = node.firstChild;
+                while (child != null)
+                {
+                    queue.Enqueue(child);
+                    child = child.nextSibling;
+                }
             }
-            child = start.firstChild;
-            while (child != null)
-            {
-                LevelOrderVisitChildren(child);
-                child = child.nextSibling;
-            }
+            
 
-        }
+        }        
     }
 
     class Program
