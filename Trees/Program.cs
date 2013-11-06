@@ -97,7 +97,25 @@ namespace Trees
 
         public void LevelOrder(Node start)
         {
-            throw new NotImplementedException();
+            Console.Write(start.value + ", ");
+            LevelOrderVisitChildren(start);
+        }
+
+        private void LevelOrderVisitChildren(Node start)
+        {
+            var child = start.firstChild;
+            while (child != null)
+            {
+                Console.Write(child.value + ", ");
+                child = child.nextSibling;
+            }
+            child = start.firstChild;
+            while (child != null)
+            {
+                LevelOrderVisitChildren(child);
+                child = child.nextSibling;
+            }
+
         }
     }
 
@@ -107,19 +125,21 @@ namespace Trees
         {
             Tree tree = new Tree();
             tree.Parent.value = "F";
-            var first = tree.InsertChild(tree.Parent, "B");
-            var second = tree.InsertChild(tree.Parent, "G");
-            var third = tree.InsertChild(first, "A");
-            var four = tree.InsertChild(first, "D");
-            var five = tree.InsertChild(four, "C");
-            var six = tree.InsertChild(four, "E");
-            var seven = tree.InsertChild(second, "I");
-            var eight = tree.InsertChild(seven, "H");
+            var b = tree.InsertChild(tree.Parent, "B");
+            var g = tree.InsertChild(tree.Parent, "G");
+            var a = tree.InsertChild(b, "A");
+            var d = tree.InsertChild(b, "D");
+            var c = tree.InsertChild(d, "C");
+            var e = tree.InsertChild(d, "E");
+            var i = tree.InsertChild(g, "I");
+            var h = tree.InsertChild(i, "H");
 
 
             //tree.PreOrder(tree.Parent);
 
-            tree.PostOrder(tree.Parent);
+            //tree.PostOrder(tree.Parent);
+
+            tree.LevelOrder(tree.Parent);
 
         }
     }
