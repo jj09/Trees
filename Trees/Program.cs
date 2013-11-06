@@ -92,7 +92,20 @@ namespace Trees
 
         public void InOrder(Node start)
         {
-            throw new NotImplementedException();
+            var child = start.firstChild;
+            if (child != null)
+            {
+                while (child.nextSibling != null)
+                {
+                    InOrder(child);
+                    child = child.nextSibling;
+                }
+            }
+            Console.Write(start.value + ", ");
+            if (child != null)
+            {
+                InOrder(child);
+            }
         }
 
         public void LevelOrder(Node start)
@@ -139,7 +152,9 @@ namespace Trees
 
             //tree.PostOrder(tree.Parent);
 
-            tree.LevelOrder(tree.Parent);
+            tree.InOrder(tree.Parent);
+
+            //tree.LevelOrder(tree.Parent);
 
         }
     }

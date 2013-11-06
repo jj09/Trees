@@ -70,7 +70,7 @@ namespace Trees.Tests
             {
                 // arrange
                 Console.SetOut(sw);
-                string expected = "A, B, C, D, E, F, G, H, I, ";
+                string expected = "A, B, C, D, E, F, G, I, H, ";
                 Tree t = GenerateTestTree();
 
                 // act
