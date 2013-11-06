@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    public class Node
-    {
-        public string value;
-        public Node parent;
-        public Node nextSibling;
-        public Node firstChild;
-    }
-
     public class Tree
     {
+        #region Tree Logic
+
+        public class Node
+        {
+            public string value;
+            public Node parent;
+            public Node nextSibling;
+            public Node firstChild;
+        }
+
         public Node Parent { get; set; }
 
         public Tree()
@@ -67,6 +69,10 @@ namespace Trees
             }
         }
 
+        #endregion Tree Logic
+
+        #region Depth-first
+
         public void PreOrder(Node start)
         {
             Console.Write(start.value + ", ");
@@ -76,7 +82,7 @@ namespace Trees
                 PreOrder(child);
                 child = child.nextSibling;
             }
-            
+
         }
 
         public void PostOrder(Node start)
@@ -108,6 +114,10 @@ namespace Trees
             }
         }
 
+        #endregion Depth-first
+
+        #region Breadth-first
+
         public void LevelOrder(Node start)
         {
             var queue = new Queue<Node>();
@@ -123,9 +133,9 @@ namespace Trees
                     child = child.nextSibling;
                 }
             }
-            
+        }
 
-        }        
+        #endregion Breadth-first
     }
 
     class Program
@@ -144,14 +154,21 @@ namespace Trees
             var h = tree.InsertChild(i, "H");
 
 
-            //tree.PreOrder(tree.Parent);
+            Console.Write("Pre-Order:\t");
+            tree.PreOrder(tree.Parent);
+            Console.WriteLine();
 
-            //tree.PostOrder(tree.Parent);
+            Console.Write("Post-Order:\t");
+            tree.PostOrder(tree.Parent);
+            Console.WriteLine();
 
+            Console.Write("In-Order:\t");
             tree.InOrder(tree.Parent);
+            Console.WriteLine();
 
-            //tree.LevelOrder(tree.Parent);
-
+            Console.Write("Level-Order:\t");
+            tree.LevelOrder(tree.Parent);
+            Console.WriteLine();
         }
     }
 }
