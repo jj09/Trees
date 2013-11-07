@@ -146,9 +146,9 @@ namespace BinaryTrees
 
                 for (; curColumn < node.column-1; ++curColumn)
                 {
-                    Console.Write(" ");
+                    Console.Write("  ");
                 }
-                Console.Write(node.val);
+                Console.Write(string.Format("{0:00}",node.val));
                 ++curColumn;
             }
             Console.WriteLine();
@@ -161,22 +161,22 @@ namespace BinaryTrees
         {
             Tree tree = new Tree();
             tree.Root.value = 2;
-            //tree.Root.left = new Tree.Node(7);
-            //tree.Root.right = new Tree.Node(5);
-            //tree.Root.left.left = new Tree.Node(2);
-            //tree.Root.left.right = new Tree.Node(6);
-            //tree.Root.left.right.left = new Tree.Node(5);
-            //tree.Root.left.right.right = new Tree.Node(1);
-            //tree.Root.right.right = new Tree.Node(9);
-            //tree.Root.right.right.left = new Tree.Node(4);
+            tree.Root.left = new Tree.Node(7);
+            tree.Root.right = new Tree.Node(5);
+            tree.Root.left.left = new Tree.Node(2);
+            tree.Root.left.right = new Tree.Node(6);
+            tree.Root.left.right.left = new Tree.Node(5);
+            tree.Root.left.right.right = new Tree.Node(11);
+            tree.Root.right.right = new Tree.Node(9);
+            tree.Root.right.right.left = new Tree.Node(4);
 
-            tree.Insert(7);
-            tree.Insert(5);
-            tree.Insert(3);
-            tree.Insert(6);
-            tree.Insert(8);
-            tree.Insert(9);
-            tree.Insert(4);
+            //tree.Insert(7);
+            //tree.Insert(5);
+            //tree.Insert(3);
+            //tree.Insert(6);
+            //tree.Insert(8);
+            //tree.Insert(11);
+            //tree.Insert(4);
 
             tree.PreetyPrint();
         }
