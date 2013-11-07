@@ -89,7 +89,7 @@ namespace BinaryTrees
 
                 for (; curColumn < node.column-1; ++curColumn)
                 {
-                    Console.Write("*");
+                    Console.Write(" ");
                 }
                 Console.Write(node.val);
                 ++curColumn;
