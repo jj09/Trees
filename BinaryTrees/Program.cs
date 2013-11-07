@@ -10,52 +10,109 @@ namespace BinaryTrees
     {
         public class Node
         {
-            public string value;
+            public int value;
             public Node left;
             public Node right;
 
-            public Node(string value)
+            public Node(int value)
             {
                 this.value = value;
             }
         }
 
+        public enum Child { NONE, LEFT, RIGHT };
+
         public class PrintNode
         {
-            public string val;
+            public int val;
             public int row;
             public int column;
-            public int childType;
+            public Child childType;
             public PrintNode parent;
         }
 
-        public Node Parent { get; set; }
+        public Node Root { get; set; }
 
         public Tree()
         {
-            Parent = new Node(null);
-        }        
+            Root = new Node(0);
+        }
+
+        public void Insert(int val)
+        {
+            Node newNode = new Node(val);
+            ShiftNode(Root, newNode);
+        }
+
+        private void ShiftNode(Node cur, Node newNode)
+        {
+            if (cur.value > newNode.value)
+            {
+                if (cur.left == null)
+                {
+                    cur.left = newNode;
+                }
+                else
+                {
+                    ShiftNode(cur.left, newNode);
+                }
+            }
+            else
+            {
+                if (cur.right == null)
+                {
+                    cur.right = newNode;
+                }
+                else
+                {
+                    ShiftNode(cur.right, newNode);
+                }
+            }
+        }
+
+        #region Breadth-first
+
+        public void LevelOrder(Node start)
+        {
+            var queue = new Queue<Node>();
+            queue.Enqueue(start);
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                Console.Write(node.value + ", ");
+                if (node.left != null)
+                {
+                    queue.Enqueue(node.left);
+                }
+                if (node.right != null)
+                {
+                    queue.Enqueue(node.right);
+                }                
+            }
+        }
+
+        #endregion Breadth-first
 
         public void PreetyPrint()
         {
             var printList = new List<PrintNode>();
             var queue = new Queue<Node>();
-            var parentNode = new PrintNode { val = Parent.value, row = 1, childType = 0 };
-            queue.Enqueue(Parent);
+            var parentNode = new PrintNode { val = Root.value, row = 1, childType = Child.NONE };
+            queue.Enqueue(Root);
             printList.Add(parentNode);
             while (queue.Count > 0)
             {
                 var cur = queue.Dequeue();                
                 if (cur.left != null)
                 {
-                    var leftChild = new PrintNode { val = cur.left.value, childType = 1, parent = printList.First(x => x.val == cur.value) };
+                    var leftChild = new PrintNode { val = cur.left.value, childType = Child.LEFT, parent = printList.First(x => x.val == cur.value) };
                     leftChild.row = leftChild.parent.row + 1;
                     queue.Enqueue(cur.left);
                     printList.Add(leftChild);
                 }
                 if (cur.right != null)
                 {
-                    var rightChild = new PrintNode { val = cur.right.value, childType = 2, parent = printList.First(x => x.val == cur.value) };
+                    var rightChild = new PrintNode { val = cur.right.value, childType = Child.RIGHT, parent = printList.First(x => x.val == cur.value) };
                     rightChild.row = rightChild.parent.row + 1;
                     queue.Enqueue(cur.right);
                     printList.Add(rightChild);
@@ -80,7 +137,7 @@ namespace BinaryTrees
                 else
                 {
                     int diff = (int)Math.Pow(2, levelCount - node.row);
-                    if (node.childType == 1)
+                    if (node.childType == Child.LEFT)
                     {
                         diff = -diff;
                     }
@@ -98,21 +155,28 @@ namespace BinaryTrees
         }
     }
 
-
     class Program
     {
         static void Main(string[] args)
         {
             Tree tree = new Tree();
-            tree.Parent.value = "2";
-            tree.Parent.left = new Tree.Node("7");
-            tree.Parent.right = new Tree.Node("5");
-            tree.Parent.left.left = new Tree.Node("2");
-            tree.Parent.left.right = new Tree.Node("6");
-            tree.Parent.left.right.left = new Tree.Node("5");
-            tree.Parent.left.right.right = new Tree.Node("1");
-            tree.Parent.right.right = new Tree.Node("9");
-            tree.Parent.right.right.left = new Tree.Node("4");
+            tree.Root.value = 2;
+            //tree.Root.left = new Tree.Node(7);
+            //tree.Root.right = new Tree.Node(5);
+            //tree.Root.left.left = new Tree.Node(2);
+            //tree.Root.left.right = new Tree.Node(6);
+            //tree.Root.left.right.left = new Tree.Node(5);
+            //tree.Root.left.right.right = new Tree.Node(1);
+            //tree.Root.right.right = new Tree.Node(9);
+            //tree.Root.right.right.left = new Tree.Node(4);
+
+            tree.Insert(7);
+            tree.Insert(5);
+            tree.Insert(3);
+            tree.Insert(6);
+            tree.Insert(8);
+            tree.Insert(9);
+            tree.Insert(4);
 
             tree.PreetyPrint();
         }

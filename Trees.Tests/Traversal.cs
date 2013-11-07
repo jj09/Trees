@@ -15,9 +15,9 @@ namespace Trees.Tests
         private Tree GenerateTestTree()
         {
             Tree tree = new Tree();
-            tree.Parent.value = "F";
-            var first = tree.InsertChild(tree.Parent, "B");
-            var second = tree.InsertChild(tree.Parent, "G");
+            tree.Root.value = "F";
+            var first = tree.InsertChild(tree.Root, "B");
+            var second = tree.InsertChild(tree.Root, "G");
             var third = tree.InsertChild(first, "A");
             var four = tree.InsertChild(first, "D");
             var five = tree.InsertChild(four, "C");
@@ -38,7 +38,7 @@ namespace Trees.Tests
                 Tree t = GenerateTestTree();
 
                 // act
-                t.PreOrder(t.Parent);
+                t.PreOrder(t.Root);
 
                 // assert
                 Assert.Equal<string>(expected, sw.ToString());
@@ -56,7 +56,7 @@ namespace Trees.Tests
                 Tree t = GenerateTestTree();
 
                 // act
-                t.PostOrder(t.Parent);
+                t.PostOrder(t.Root);
 
                 // assert
                 Assert.Equal<string>(expected, sw.ToString());
@@ -74,7 +74,7 @@ namespace Trees.Tests
                 Tree t = GenerateTestTree();
 
                 // act
-                t.InOrder(t.Parent);
+                t.InOrder(t.Root);
 
                 // assert
                 Assert.Equal<string>(expected, sw.ToString());
@@ -92,7 +92,7 @@ namespace Trees.Tests
                 Tree t = GenerateTestTree();
 
                 // act
-                t.LevelOrder(t.Parent);
+                t.LevelOrder(t.Root);
 
                 // assert
                 Assert.Equal<string>(expected, sw.ToString());

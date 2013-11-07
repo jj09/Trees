@@ -19,13 +19,13 @@ namespace Trees
             public Node firstChild;
         }
 
-        public Node Parent { get; set; }
+        public Node Root { get; set; }
 
         public Tree()
         {
-            Parent = new Node();
-            Parent.parent = null;
-            Contract.Ensures(Parent.parent == null);
+            Root = new Node();
+            Root.parent = null;
+            Contract.Ensures(Root.parent == null);
         }
 
         public Node InsertChild(Node parent, string value)
@@ -49,7 +49,7 @@ namespace Trees
 
         public void Remove(Node node)
         {
-            if (node == Parent)
+            if (node == Root)
             {
                 throw new NotImplementedException();
             }
@@ -143,9 +143,9 @@ namespace Trees
         static void Main(string[] args)
         {
             Tree tree = new Tree();
-            tree.Parent.value = "F";
-            var b = tree.InsertChild(tree.Parent, "B");
-            var g = tree.InsertChild(tree.Parent, "G");
+            tree.Root.value = "F";
+            var b = tree.InsertChild(tree.Root, "B");
+            var g = tree.InsertChild(tree.Root, "G");
             var a = tree.InsertChild(b, "A");
             var d = tree.InsertChild(b, "D");
             var c = tree.InsertChild(d, "C");
@@ -155,19 +155,19 @@ namespace Trees
 
 
             Console.Write("Pre-Order:\t");
-            tree.PreOrder(tree.Parent);
+            tree.PreOrder(tree.Root);
             Console.WriteLine();
 
             Console.Write("Post-Order:\t");
-            tree.PostOrder(tree.Parent);
+            tree.PostOrder(tree.Root);
             Console.WriteLine();
 
             Console.Write("In-Order:\t");
-            tree.InOrder(tree.Parent);
+            tree.InOrder(tree.Root);
             Console.WriteLine();
 
             Console.Write("Level-Order:\t");
-            tree.LevelOrder(tree.Parent);
+            tree.LevelOrder(tree.Root);
             Console.WriteLine();
         }
     }
